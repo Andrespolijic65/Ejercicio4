@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <!--Elementos simples -->
+    <xs:element name="fechafinpago" type="xs:date"/>
+    <xs:element name="cantidad" type="xs:integer"/>
+    <xs:element name="divisa" type="xs:decimal"/>
+
+    <!--Elementos complejos parte 1 -->
+    <xs:element name="ventainmediata">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="cantidad"/>
+                <xs:element ref="divisa"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:element name="ventacredito">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="fechafinpago" minOccurs="0"/>
+                <xs:element ref="cantidad"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!--Elementos complejos parte 2 -->
+    <xs:element name="venta">
+        <xs:complexType>
+            <xs:choice minOccurs="1" maxOccurs="1">
+                <xs:element ref="ventacredito"/>
+                <xs:element ref="ventainmediata"/>
+            </xs:choice>
+        </xs:complexType>
+    </xs:element>
+
+    <!--elemento raiz -->
+    <xs:element name="listacompras">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="venta" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
+
